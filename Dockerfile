@@ -1,21 +1,18 @@
-FROM node:lts-buster
+FROM node:20-bookworm
 
 RUN apt-get update && \
-  apt-get install -y \
-  ffmpeg \
-  imagemagick \
-  webp && \
-  apt-get upgrade -y && \
-  npm i pm2 -g && \
-  rm -rf /var/lib/apt/lists/*
-  
-RUN git clone https://github.com/djalega8000/Zokou-2.0  /root/Zokou_BOt
-WORKDIR /root/Zokou_Bot/
+    apt-get install -y \
+    ffmpeg \
+    imagemagick \
+    webp \
+    git && \
+    npm install -g pm2 npm@10.2.4 && \
+    rm -rf /var/lib/apt/lists/*
 
+WORKDIR /app
 
-COPY package.json .
-run npm install -g npm@10.2.4
-RUN npm install pm2 -g
+COPY package*.json ./
+
 RUN npm install --legacy-peer-deps
 
 COPY . .
