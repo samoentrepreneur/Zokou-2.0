@@ -15,6 +15,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
 RUN npm install --legacy-peer-deps --force
 
 COPY . .
