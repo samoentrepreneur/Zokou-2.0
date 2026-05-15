@@ -1,5 +1,7 @@
 FROM node:20-bookworm
 
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+
 RUN apt-get update && \
     apt-get install -y \
     ffmpeg \
@@ -13,7 +15,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --force
 
 COPY . .
 
